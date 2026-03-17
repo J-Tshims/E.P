@@ -1,0 +1,2 @@
+Django>=3.2
+# Ajoute ici les autres dépendances de ton projet, ex: djangorestframework
