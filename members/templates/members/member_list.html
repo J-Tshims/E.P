@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The English Parlour - Members</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#0a0a0a] text-[#F8F6F2] font-sans">
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-bold text-[#D4AF37] mb-4">The English Parlour</h1>
+            <p class="text-xl italic text-gray-400">Exclusive Immersion Community</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {% for member in members %}
+                <div class="bg-[#1a1a1a] border border-[#D4AF37]/30 p-6 rounded-lg shadow-xl hover:border-[#D4AF37] transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="text-2xl font-semibold text-[#D4AF37]">{{ member.full_name }}</h2>
+                        <span class="px-3 py-1 bg-[#D4AF37] text-black text-xs font-bold rounded-full uppercase">
+                            {{ member.get_english_level_display }}
+                        </span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed mb-4 italic">
+                        "{{ member.bio }}"
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        Member since {{ member.created_at|date:"M Y" }}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-span-full text-center py-20 border-2 border-dashed border-gray-800 rounded-xl">
+                    <p class="text-gray-500 text-xl">The Parlour is currently private. No members visible.</p>
+                </div>
+            {% endfor %}
+        </div>
+<hr class="my-16 border-gray-800">
+
+        <div class="max-w-xl mx-auto bg-[#111] p-8 rounded-2xl border border-[#D4AF37]/20 shadow-2xl">
+            <h2 class="text-3xl font-bold text-[#D4AF37] mb-6 text-center">Join the Parlour</h2>
+            <form method="POST" class="space-y-6">
+                {% csrf_token %} {{ form.as_p }}
+                <button type="submit" class="w-full bg-[#D4AF37] hover:bg-[#b8962d] text-black font-bold py-4 rounded-lg transition-colors duration-300">
+                    Submit Application
+                </button>
+            </form>
+            <p class="text-xs text-gray-500 mt-4 text-center italic">
+                Each application is manually reviewed by the founder.
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
